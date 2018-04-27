@@ -1,0 +1,16 @@
+const styles = StyleSheet.create({
+    text: {
+        height: 40, backgroundColor: 'white', borderRadius: 5, padding: 10, 
+    },
+    textvalid: {
+        borderWidth: 2,
+    },
+    textinvalid: {
+        borderColor: 'red',
+    },
+});
+and then group them together with array of styles.
+
+<TextInput
+    style={[styles.text, touched && invalid ? styles.invalid : styles.valid]}
+</TextInput>
