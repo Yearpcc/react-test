@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import Button from './Button';
 import PropTypes from 'prop-types';
+import IconManager from '../model/IconManager';
 
 export default class NavButton extends Component {
     
@@ -40,10 +41,33 @@ export default class NavButton extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Button 
-                    label="Service"
-                    active = {this.state.activeService}
-                    onPress={() => this.handlePress("service")}/>
+                {/* Background */}
+                <View style={styles.viewBackground}>
+                </View>
+                <View style={styles.buttonBar}>
+                    <Button 
+                        label="Service"
+                        icon={IconManager.ICON_SERVICE}
+                        active = {this.state.activeService}
+                        onPress={() => this.handlePress("service")}/>
+                    <Button 
+                        label="Search"
+                        circle = {true}
+                        icon={IconManager.ICON_SEARCH}
+                        active = {this.state.activeService}
+                        onPress={() => this.handlePress("search")}/>
+                    <Button 
+                        label="Location"
+                        circle = {true}
+                        icon={IconManager.ICON_LOCATION}
+                        active = {this.state.activeService}
+                        onPress={() => this.handlePress("location")}/>
+                    <Button 
+                        label="Etc"
+                        icon={IconManager.ICON_ETC}
+                        active = {this.state.activeService}
+                        onPress={() => this.handlePress("etc")}/>
+                </View>
             </View>
         );
     }
@@ -56,13 +80,24 @@ const styles = StyleSheet.create({
     
     container: {
         width: width,
-        height: 55,
-        flexDirection: 'row',
-        backgroundColor: '#E85B0B',
-        alignItems: 'center',
-        justifyContent: 'center',
+        height: 100,
     },
-
+    buttonBar: {
+        position : 'absolute',
+        bottom: 0,
+        width: width,
+        height: 100,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    viewBackground: {
+        position : 'absolute',
+        bottom: 0,
+        width: width,
+        height: 80,
+        backgroundColor: "#E85B0B",
+    },
+    
 });
 
 NavButton.propTypes = {

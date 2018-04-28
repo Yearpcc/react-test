@@ -1,34 +1,7 @@
 import React from 'react';
 import { StyleSheet, Image, TouchableOpacity, View, Text } from 'react-native';
 import PropTypes from 'prop-types';
-
-const getIcon = (label, active) => {
-    let icn;
-    let iconSize = "x3";
-    switch (label) {
-        case 'Service':
-            icn = active
-            ? require("../assets/Navigator_menu/"+iconSize+"/Service_selected.png")
-            : require("../assets/Navigator_menu/"+iconSize+"/Service.png")
-            break
-        case 'Search':
-            icn = active
-            ? require("../assets/Navigator_menu/"+iconSize+"/Service_selected.png")
-            : require("../assets/Navigator_menu/"+iconSize+"/Service.png")
-            break
-        case 'Location':
-            icn = active
-            ? require("../assets/Navigator_menu/"+iconSize+"/Service_selected.png")
-            : require("../assets/Navigator_menu/"+iconSize+"/Service.png")
-            break
-        case 'Etc':
-            icn = active
-            ? require("../assets/Navigator_menu/"+iconSize+"/Service_selected.png")
-            : require("../assets/Navigator_menu/"+iconSize+"/Service.png")
-            break
-    }
-    return icn;
-}
+import IconManager from '../model/IconManager';
 
 const Button = props => {
     return (
@@ -37,7 +10,7 @@ const Button = props => {
                 onPress={props.onPress}
                 style={styles.buttonStyle}
             >
-                <Image source={getIcon(props.label, props.active)} />
+                <Image source={IconManager.getIcon(props.icon, props.active)} />
             </TouchableOpacity>
             <Text>{props.label}</Text>
         </View>
@@ -49,6 +22,7 @@ Button.propTypes = {
     selectedIcon : PropTypes.string,
     active: PropTypes.bool,
     label :  PropTypes.string,
+    circle : PropTypes.bool,
     onPress: PropTypes.func
 };
 
@@ -63,14 +37,17 @@ const styles = StyleSheet.create({
         width: 160,
         height: 54,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     buttonStyle: {
         flex: 1,
         width: 120,
         height: 54,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        borderWidth: 1,
+        borderStyle: 'solid',
+        // backgroundColor : '#00FF00',
     }
     
 });
