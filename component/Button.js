@@ -1,18 +1,25 @@
 import React from 'react';
 import { StyleSheet, Image, TouchableOpacity, View, Text } from 'react-native';
 import PropTypes from 'prop-types';
-import IconManager from '../model/IconManager';
+import ButtonContent from './ButtonContent';
+import SizeManager from '../model/SizeManager';
 
 const Button = props => {
     return (
-        <View>
+        <View style={{"marginRight":props.marginRight}}>
             <TouchableOpacity
                 onPress={props.onPress}
                 style={styles.buttonStyle}
-            >
-                <Image source={IconManager.getIcon(props.icon, props.active)} />
+                >
+                <ButtonContent 
+                    icon={props.icon} 
+                    label={props.label}
+                    selectedIcon={props.selectedIcon}
+                    active={props.active}
+                    circle={false}
+                    >
+                </ButtonContent>
             </TouchableOpacity>
-            <Text>{props.label}</Text>
         </View>
     );
 };
@@ -22,34 +29,23 @@ Button.propTypes = {
     selectedIcon : PropTypes.string,
     active: PropTypes.bool,
     label :  PropTypes.string,
-    circle : PropTypes.bool,
-    onPress: PropTypes.func
+    onPress: PropTypes.func,
+    marginRight : PropTypes.number,
 };
 
 Button.defaultProps = {
-    active: false
+    active: false, 
+    marginRight: 0,
 };
 
 const styles = StyleSheet.create({
-    
-    buttonCircleStyle: {
-        flex: 1,
-        width: 160,
-        height: 54,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
     buttonStyle: {
-        flex: 1,
-        width: 120,
-        height: 54,
+        width: SizeManager.getWidth(120),
+        height: SizeManager.getHeight(116),
+        marginTop: SizeManager.getHeight(46),
         justifyContent: 'center',
         alignItems: 'center',
-        borderWidth: 1,
-        borderStyle: 'solid',
-        // backgroundColor : '#00FF00',
-    }
-    
+    },    
 });
 
 export default Button;

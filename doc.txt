@@ -14,3 +14,12 @@ and then group them together with array of styles.
 <TextInput
     style={[styles.text, touched && invalid ? styles.invalid : styles.valid]}
 </TextInput>
+
+// for of
+for (let userObject of this.state.users) {
+    console.log(userObject.username);
+}
+// map
+this.state.users.map((userData) => {
+    console.log(userData.username);
+});

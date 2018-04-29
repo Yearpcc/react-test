@@ -2,39 +2,36 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    Dimensions
+    Dimensions,
 } from 'react-native';
 import Button from './Button';
+import ButtonCircle from './ButtonCircle';
 import PropTypes from 'prop-types';
 import IconManager from '../model/IconManager';
+import SizeManager from '../model/SizeManager';
 
 export default class NavButton extends Component {
     
     constructor(props) {
         super(props);
         this.state = {
-            selectedIndex : 0,
-            activeService : false,
-            activeSearch : false,
-            activeLocation : false,
-            activeEtc : false,
+            activeService : !props || props.activeService == null ? false : props.activeService == true,
+            activeSearch : !props || props.activeSearch == null ? false : props.activeSearch == true,
+            activeLocation : !props || props.activeLocation == null ? false : props.activeLocation == true,
+            activeEtc : !props || props.activeEtc == null ? false : props.activeEtc == true,
+            gap : SizeManager.getWidth(20),
         }
     }
 
     handlePress = (str) => {
-        switch (str) {
-            case 'service':
-                this.state.activeService = true;
-                break;
-            case 'search':
-                this.state.activeSearch = true;
-                break;
-            case 'location':
-                this.state.activeLocation = true;
-                break;
-            case 'etc':
-                this.state.activeEtc = true;
-                break;
+        let arr = ["activeService", "activeSearch", "activeLocation", "activeEtc"];
+        let obj = {};
+        for (let s of arr) {
+            obj[s] = s == str;
+        }
+        this.setState(obj);
+        if(this.props.onStatusChanged){
+            this.props.onStatusChanged();
         }
     }
 
@@ -46,27 +43,29 @@ export default class NavButton extends Component {
                 </View>
                 <View style={styles.buttonBar}>
                     <Button 
-                        label="Service"
+                        marginRight={this.state.gap}
+                        label="Services"
                         icon={IconManager.ICON_SERVICE}
                         active = {this.state.activeService}
-                        onPress={() => this.handlePress("service")}/>
-                    <Button 
+                        onPress={() => this.handlePress("activeService")}/>
+                    <ButtonCircle 
+                    marginRight={this.state.gap}
                         label="Search"
-                        circle = {true}
                         icon={IconManager.ICON_SEARCH}
-                        active = {this.state.activeService}
-                        onPress={() => this.handlePress("search")}/>
-                    <Button 
+                        active = {this.state.activeSearch}
+                        onPress={() => this.handlePress("activeSearch")}/>
+                    <ButtonCircle 
+                        marginRight={this.state.gap}
                         label="Location"
-                        circle = {true}
                         icon={IconManager.ICON_LOCATION}
-                        active = {this.state.activeService}
-                        onPress={() => this.handlePress("location")}/>
+                        active = {this.state.activeLocation}
+                        onPress={() => this.handlePress("activeLocation")}/>
                     <Button 
+                        marginRight={this.state.gap}
                         label="Etc"
                         icon={IconManager.ICON_ETC}
-                        active = {this.state.activeService}
-                        onPress={() => this.handlePress("etc")}/>
+                        active = {this.state.activeEtc}
+                        onPress={() => this.handlePress("activeEtc")}/>
                 </View>
             </View>
         );
@@ -75,29 +74,29 @@ export default class NavButton extends Component {
 }
 
 const { width } = Dimensions.get('window');
+const { height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     
     container: {
         width: width,
-        height: 100,
+        height: SizeManager.getHeight(160),
+        /* for now */
+        position: 'absolute',
+        bottom: 0,
     },
     buttonBar: {
-        position : 'absolute',
-        bottom: 0,
-        width: width,
-        height: 100,
+        flex: 1,
         flexDirection: 'row',
-        alignItems: 'center',
+        justifyContent: 'center',
     },
     viewBackground: {
         position : 'absolute',
         bottom: 0,
         width: width,
-        height: 80,
+        height: SizeManager.getHeight(116),
         backgroundColor: "#E85B0B",
     },
-    
 });
 
 NavButton.propTypes = {

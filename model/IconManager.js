@@ -6,10 +6,13 @@ class IconManager {
     static ICON_SEARCH = "Search";
     static ICON_LOCATION = "Location";
     static ICON_ETC = "Etc";
+
+    static LOGO_HEADER = "LogoHeader";
+    static LOGO_SPLASH_SCREEN = "LogoSplashScreen";
     
     static getIcon(icon, active){
         let icn;
-        let iconSize = "x3";
+        let iconSize = "x1";
         switch (icon) {
             case IconManager.ICON_SERVICE:
                 icn = active
@@ -30,6 +33,12 @@ class IconManager {
                 icn = active
                 ? require("../assets/Navigator_menu/"+iconSize+"/Etc_selected.png")
                 : require("../assets/Navigator_menu/"+iconSize+"/Etc.png")
+                break
+            case IconManager.LOGO_SPLASH_SCREEN:
+                icn = require("../assets/Logo/Splash_page/Logo_2x.png")
+                break
+            case IconManager.LOGO_HEADER:
+                icn = require("../assets/Logo/Header_page/Logo2_2x.png")
                 break
         }
         return icn;
